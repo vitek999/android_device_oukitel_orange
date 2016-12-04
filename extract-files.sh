@@ -1,7 +1,7 @@
 #!/bin/bash
 
-export DEVICE=persimmon
-export VENDOR=archos
+export DEVICE=orange
+export VENDOR=oukitel
 
 if [ $# -eq 0 ]; then
   SRC=adb

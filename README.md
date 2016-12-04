@@ -1,4 +1,4 @@
-Device repository for Archos 50 Cobalt (CyanogenMod)
+Device repository for Oukitel Orange (CyanogenMod)
 ===========================
 
 Getting Started
@@ -15,7 +15,7 @@ Optinally use a specific manifest (not a tip):
 Build the code:
 
     source build/envsetup.sh
-    breakfast meilan2
+    breakfast orange
     make -j 4 bacon showcommands 2>&1 | tee build.log
 
 Flash the phone:

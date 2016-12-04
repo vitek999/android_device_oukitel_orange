@@ -1,5 +1,5 @@
-DEVICE_PATH := device/archos/persimmon
-VENDOR_PATH := vendor/archos/persimmon
+DEVICE_PATH := device/oukitel/orange
+VENDOR_PATH := vendor/oukitel/orange
 
 USE_CAMERA_STUB := true
 
