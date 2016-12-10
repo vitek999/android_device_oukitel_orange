@@ -62,8 +62,8 @@ BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x04000000 -
 
 #in case we want to build kernel from source
 # uncomment the following lines
-#TARGET_KERNEL_SOURCE := kernel/archos/persimmon
-#TARGET_KERNEL_CONFIG := persimmon_debug_defconfig
+#TARGET_KERNEL_SOURCE := kernel/oukitel/orange
+#TARGET_KERNEL_CONFIG := orange_debug_defconfig
 #TARGET_KERNEL_CROSS_COMPILE_PREFIX := arm-linux-android-
 #BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
 # end of commented lines

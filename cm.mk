@@ -11,7 +11,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 $(call inherit-product, device/oukitel/orange/device_orange.mk)
 
 # Configure dalvik heap
-$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
 TARGET_SCREEN_HEIGHT := 1280
 TARGET_SCREEN_WIDTH := 720
@@ -19,6 +19,6 @@ TARGET_SCREEN_WIDTH := 720
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := orange
 PRODUCT_NAME := cm_orange
-PRODUCT_BRAND := Oukitel
+PRODUCT_BRAND := oukitel
 PRODUCT_MODEL := K4000
-PRODUCT_MANUFACTURER := Oukitel
+PRODUCT_MANUFACTURER := oukitel
