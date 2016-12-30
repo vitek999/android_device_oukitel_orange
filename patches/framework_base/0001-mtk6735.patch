@@ -1,32 +1,675 @@
-From f4b0c7903dd5cacd929e1c006cb9467ec647e7fa Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?=E7=A7=8B=E5=8F=B6=E9=9A=8F=E9=A3=8Eivan?=
- <yanziily@gmail.com>
-Date: Sun, 3 Jan 2016 21:29:16 +0800
-Subject: [PATCH 2/2] Update for mtk
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From a4c6a51c8b902f84a54125df8d9553ea4c303243 Mon Sep 17 00:00:00 2001
+From: olegsvs <oleg.texet@gmail.com>
+Date: Tue, 22 Nov 2016 13:51:42 +0000
+Subject: [PATCH] mtk6735
 
-Change-Id: I0318ed975caeb595db3efd1dd4b87a9729167bcd
-Signed-off-by: 秋叶随风ivan <yanziily@gmail.com>
 ---
+ core/java/com/mediatek/xlog/Xlog.java              | 123 ++++++++
+ core/jni/android_media_AudioSystem.cpp             |  40 +++
+ location/java/android/location/GpsStatus.java      |  36 +++
+ .../java/android/location/IGpsStatusListener.aidl  |   5 +
+ .../java/android/location/LocationManager.java     |  25 ++
+ media/java/android/media/AudioSystem.java          |   3 +
+ .../server/location/GpsLocationProvider.java       |  86 +++++-
+ .../server/location/GpsStatusListenerHelper.java   |  26 ++
+ ...android_server_location_GpsLocationProvider.cpp |  91 +++++-
  .../java/android/telephony/PhoneNumberUtils.java   | 280 ++++++++++++++++++
  .../java/android/telephony/PhoneRatFamily.aidl     |  19 ++
  .../java/android/telephony/PhoneRatFamily.java     | 114 ++++++++
  telephony/java/android/telephony/ServiceState.java | 190 +++++++++++-
  .../internal/telephony/IccCardConstants.java       |  12 +
- .../android/internal/telephony/RILConstants.java   | 324 ++++++++++++++++++++-
+ .../android/internal/telephony/RILConstants.java   | 321 ++++++++++++++++++++-
  .../internal/telephony/TelephonyIntents.java       | 255 ++++++++++++++++
  .../internal/telephony/TelephonyProperties.java    |  35 +++
- 8 files changed, 1226 insertions(+), 3 deletions(-)
+ 17 files changed, 1650 insertions(+), 11 deletions(-)
+ create mode 100755 core/java/com/mediatek/xlog/Xlog.java
  create mode 100755 telephony/java/android/telephony/PhoneRatFamily.aidl
  create mode 100755 telephony/java/android/telephony/PhoneRatFamily.java
 
+diff --git a/core/java/com/mediatek/xlog/Xlog.java b/core/java/com/mediatek/xlog/Xlog.java
+new file mode 100755
+index 0000000..4be6749
+--- /dev/null
++++ b/core/java/com/mediatek/xlog/Xlog.java
+@@ -0,0 +1,123 @@
++/* Copyright Statement:
++ *
++ * This software/firmware and related documentation ("MediaTek Software") are
++ * protected under relevant copyright laws. The information contained herein is
++ * confidential and proprietary to MediaTek Inc. and/or its licensors. Without
++ * the prior written permission of MediaTek inc. and/or its licensors, any
++ * reproduction, modification, use or disclosure of MediaTek Software, and
++ * information contained herein, in whole or in part, shall be strictly
++ * prohibited.
++ * 
++ * MediaTek Inc. (C) 2010. All rights reserved.
++ * 
++ * BY OPENING THIS FILE, RECEIVER HEREBY UNEQUIVOCALLY ACKNOWLEDGES AND AGREES
++ * THAT THE SOFTWARE/FIRMWARE AND ITS DOCUMENTATIONS ("MEDIATEK SOFTWARE")
++ * RECEIVED FROM MEDIATEK AND/OR ITS REPRESENTATIVES ARE PROVIDED TO RECEIVER
++ * ON AN "AS-IS" BASIS ONLY. MEDIATEK EXPRESSLY DISCLAIMS ANY AND ALL
++ * WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
++ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE OR
++ * NONINFRINGEMENT. NEITHER DOES MEDIATEK PROVIDE ANY WARRANTY WHATSOEVER WITH
++ * RESPECT TO THE SOFTWARE OF ANY THIRD PARTY WHICH MAY BE USED BY,
++ * INCORPORATED IN, OR SUPPLIED WITH THE MEDIATEK SOFTWARE, AND RECEIVER AGREES
++ * TO LOOK ONLY TO SUCH THIRD PARTY FOR ANY WARRANTY CLAIM RELATING THERETO.
++ * RECEIVER EXPRESSLY ACKNOWLEDGES THAT IT IS RECEIVER'S SOLE RESPONSIBILITY TO
++ * OBTAIN FROM ANY THIRD PARTY ALL PROPER LICENSES CONTAINED IN MEDIATEK
++ * SOFTWARE. MEDIATEK SHALL ALSO NOT BE RESPONSIBLE FOR ANY MEDIATEK SOFTWARE
++ * RELEASES MADE TO RECEIVER'S SPECIFICATION OR TO CONFORM TO A PARTICULAR
++ * STANDARD OR OPEN FORUM. RECEIVER'S SOLE AND EXCLUSIVE REMEDY AND MEDIATEK'S
++ * ENTIRE AND CUMULATIVE LIABILITY WITH RESPECT TO THE MEDIATEK SOFTWARE
++ * RELEASED HEREUNDER WILL BE, AT MEDIATEK'S OPTION, TO REVISE OR REPLACE THE
++ * MEDIATEK SOFTWARE AT ISSUE, OR REFUND ANY SOFTWARE LICENSE FEES OR SERVICE
++ * CHARGE PAID BY RECEIVER TO MEDIATEK FOR SUCH MEDIATEK SOFTWARE AT ISSUE.
++ *
++ * The following software/firmware and/or related documentation ("MediaTek
++ * Software") have been modified by MediaTek Inc. All revisions are subject to
++ * any receiver's applicable license agreements with MediaTek Inc.
++ */
++
++package com.mediatek.xlog;
++
++import android.util.Log;
++
++public final class Xlog {
++		/**
++			* API for verbose log.
++			* @internal
++			*/
++    public static int v(String tag, String msg) {
++        return 0;
++    }
++
++    /**
++			* API for verbose log.
++			* @internal
++			*/
++    public static int v(String tag, String msg, Throwable tr) {
++        return 0;
++    }
++
++    /**
++			* API for debug log.
++			* @internal
++			*/
++    public static int d(String tag, String msg) {
++        return 0;
++    }
++
++    /**
++			* API for debug log.
++			* @internal
++			*/
++    public static int d(String tag, String msg, Throwable tr) {
++        return 0;
++    }
++
++    /**
++			* API for info log.
++			* @internal
++			*/
++    public static int i(String tag, String msg) {
++        return 0;
++    }
++
++    /**
++			* API for info log.
++			* @internal
++			*/
++    public static int i(String tag, String msg, Throwable tr) {
++        return 0;
++    }
++
++    /**
++			* API for info log.
++			* @internal
++			*/
++    public static int w(String tag, String msg) {
++        return 0;
++    }
++
++    /**
++			* API for warning log.
++			* @internal
++			*/
++    public static int w(String tag, String msg, Throwable tr) {
++        return 0;
++    }
++
++    /**
++			* API for warning log.
++			* @internal
++			*/
++    public static int e(String tag, String msg) {
++        return 0;
++    }
++
++    /**
++			* API for verbose log.
++			* @internal
++			*/
++    public static int e(String tag, String msg, Throwable tr) {
++        return 0;
++    }
++
++}
+diff --git a/core/jni/android_media_AudioSystem.cpp b/core/jni/android_media_AudioSystem.cpp
+index fee1ead..5626a15 100644
+--- a/core/jni/android_media_AudioSystem.cpp
++++ b/core/jni/android_media_AudioSystem.cpp
+@@ -1480,7 +1480,43 @@ exit:
+     return jStatus;
+ }
+ 
++static jint
++android_media_AudioSystem_setAudioData(JNIEnv *env, jobject clazz,
++                                       jint jA, jint jB, jbyteArray jArray)
++{
++    ALOGV("setAudioData");
++    if (jArray == NULL || env->GetArrayLength(jArray) == 0) {
++        ALOGE("setAudioData: emply buffer");
++        return (jint)AUDIO_JAVA_BAD_VALUE;
++    }
++
++    jbyte * buffer = env->GetByteArrayElements(jArray, NULL);
++
++    int status = AudioSystem::setAudioData((int)jA, (unsigned long)jB, (char*)buffer);
++
++    env->ReleaseByteArrayElements(jArray, buffer, 0);
++    ALOGV("setAudioData: status %d", status);
++    return (jint)status;
++}
+ 
++static jint
++android_media_AudioSystem_getAudioData(JNIEnv *env, jobject clazz,
++                                       jint jA, jint jB, jbyteArray jArray)
++{
++    ALOGV("getAudioData");
++    if (jArray == NULL || env->GetArrayLength(jArray) == 0) {
++        ALOGE("getAudioData: emply buffer");
++        return (jint)AUDIO_JAVA_BAD_VALUE;
++    }
++
++    jbyte * buffer = env->GetByteArrayElements(jArray, NULL);
++
++    int status = AudioSystem::getAudioData((int)jA, (unsigned long)jB, (char*)buffer);
++
++    env->ReleaseByteArrayElements(jArray, buffer, 0);
++    ALOGV("getAudioData: status %d", status);
++    return (jint)status;
++}
+ 
+ // ----------------------------------------------------------------------------
+ 
+@@ -1525,6 +1561,10 @@ static JNINativeMethod gMethods[] = {
+                                     (void *)android_media_AudioSystem_getAudioHwSyncForSession},
+     {"registerPolicyMixes",    "(Ljava/util/ArrayList;Z)I",
+                                             (void *)android_media_AudioSystem_registerPolicyMixes},
++    {"getAudioData",    "(II[B)I",
++                        (void *)android_media_AudioSystem_getAudioData},
++    {"setAudioData",    "(II[B)I",
++                        (void *)android_media_AudioSystem_setAudioData},
+ 
+ };
+ 
+diff --git a/location/java/android/location/GpsStatus.java b/location/java/android/location/GpsStatus.java
+index 4af55a6..a647488 100644
+--- a/location/java/android/location/GpsStatus.java
++++ b/location/java/android/location/GpsStatus.java
+@@ -165,6 +165,42 @@ public final class GpsStatus {
+     }
+ 
+     /**
++     * Used internally within {@link LocationManager} to copy GPS status
++     * data from the Location Manager Service to its cached GpsStatus instance.
++     * Is synchronized to ensure that GPS status updates are atomic.
++     *
++     * This is modified to become aware of explicit GNSS support of &gt;32
++     * satellites.
++     */
++    synchronized void setStatusFromGnss(int gnssSvCount, int[] prns, float[] snrs,
++            float[] elevations, float[] azimuths,
++            boolean[] ephemerisPresences,
++            boolean[] almanacPresences,
++            boolean[] usedInFix) {
++        int i;
++
++        for (i = 0; i < mSatellites.length; i++) {
++            mSatellites[i].mValid = false;
++        }
++
++        for (i = 0; i < gnssSvCount; i++) {
++            int prn = prns[i] - 1;
++
++            if (prn >= 0 && prn < mSatellites.length) {
++                GpsSatellite satellite = mSatellites[prn];
++
++                satellite.mValid = true;
++                satellite.mSnr = snrs[i];
++                satellite.mElevation = elevations[i];
++                satellite.mAzimuth = azimuths[i];
++                satellite.mHasEphemeris = ephemerisPresences[i];
++                satellite.mHasAlmanac = almanacPresences[i];
++                satellite.mUsedInFix = usedInFix[i];
++            }
++        }
++    }
++
++    /**
+      * Used by {@link LocationManager#getGpsStatus} to copy LocationManager's
+      * cached GpsStatus instance to the client's copy.
+      * Since this method is only used within {@link LocationManager#getGpsStatus},
+diff --git a/location/java/android/location/IGpsStatusListener.aidl b/location/java/android/location/IGpsStatusListener.aidl
+index 62b1c6b..52865b7 100644
+--- a/location/java/android/location/IGpsStatusListener.aidl
++++ b/location/java/android/location/IGpsStatusListener.aidl
+@@ -29,5 +29,10 @@ oneway interface IGpsStatusListener
+     void onSvStatusChanged(int svCount, in int[] prns, in float[] snrs, 
+             in float[] elevations, in float[] azimuths, 
+             int ephemerisMask, int almanacMask, int usedInFixMask);
++    void onGnssSvStatusChanged(int gnssSvCount, in int[] prns, in float[] snrs,
++            in float[] elevations, in float[] azimuths,
++            in boolean[] ephemerisPresences,
++            in boolean[] almanacPresences,
++            in boolean[] usedInFix);
+     void onNmeaReceived(long timestamp, String nmea);
+ }
+diff --git a/location/java/android/location/LocationManager.java b/location/java/android/location/LocationManager.java
+index 0eb4fdc..b4682e7 100644
+--- a/location/java/android/location/LocationManager.java
++++ b/location/java/android/location/LocationManager.java
+@@ -1448,6 +1448,31 @@ public class LocationManager {
+         }
+ 
+         @Override
++        public void onGnssSvStatusChanged(int gnssSvCount, int[] prns, float[] snrs,
++                float[] elevations, float[] azimuths,
++                boolean[] ephemerisPresences,
++                boolean[] almanacPresences,
++                boolean[] usedInFix) {
++            if (mListener != null) {
++                mGpsStatus.setStatusFromGnss(
++                        gnssSvCount,
++                        prns,
++                        snrs,
++                        elevations,
++                        azimuths,
++                        ephemerisPresences,
++                        almanacPresences,
++                        usedInFix);
++
++                Message msg = Message.obtain();
++                msg.what = GpsStatus.GPS_EVENT_SATELLITE_STATUS;
++                // remove any SV status messages already in the queue
++                mGpsHandler.removeMessages(GpsStatus.GPS_EVENT_SATELLITE_STATUS);
++                mGpsHandler.sendMessage(msg);
++            }
++        }
++
++        @Override
+         public void onNmeaReceived(long timestamp, String nmea) {
+             if (mNmeaListener != null) {
+                 synchronized (mNmeaBuffer) {
+diff --git a/media/java/android/media/AudioSystem.java b/media/java/android/media/AudioSystem.java
+index bf79e9a..50b94ae 100644
+--- a/media/java/android/media/AudioSystem.java
++++ b/media/java/android/media/AudioSystem.java
+@@ -604,5 +604,8 @@ public class AudioSystem
+     public static native int getAudioHwSyncForSession(int sessionId);
+ 
+     public static native int registerPolicyMixes(ArrayList<AudioMix> mixes, boolean register);
++
++    public static native int getAudioData(int par, int size, byte[] data);
++    public static native int setAudioData(int par, int size, byte[] data);
+ }
+ 
+diff --git a/services/core/java/com/android/server/location/GpsLocationProvider.java b/services/core/java/com/android/server/location/GpsLocationProvider.java
+index 2a4fbb1..c82907d 100644
+--- a/services/core/java/com/android/server/location/GpsLocationProvider.java
++++ b/services/core/java/com/android/server/location/GpsLocationProvider.java
+@@ -1705,6 +1705,72 @@ public class GpsLocationProvider implements LocationProviderInterface {
+     }
+ 
+     /**
++     * Count number of GNSS satellites used in fix.
++     *
++     * We could not rely on Integer.bitCount as GNSS used-in-fix info is not
++     * represented as a bit-mask.
++     */
++    private int countGnssSvUsedInFix(final int gnssSvCount) {
++        int result = 0;
++
++        for (int i = 0; i < gnssSvCount; i++) {
++            if (mSvUsedInFix[i]) {
++                result++;
++            }
++        }
++
++        return result;
++    }
++
++    /**
++     * called from native code to update GNSS SV info
++     */
++    private void reportGnssSvStatus() {
++        final int svCount = native_read_gnss_sv_status(
++                mSvs,
++                mSnrs,
++                mSvElevations,
++                mSvAzimuths,
++                mSvEphemerisPresences,
++                mSvAlmanacPresences,
++                mSvUsedInFix);
++        mListenerHelper.onGnssSvStatusChanged(
++                svCount,
++                mSvs,
++                mSnrs,
++                mSvElevations,
++                mSvAzimuths,
++                mSvEphemerisPresences,
++                mSvAlmanacPresences,
++                mSvUsedInFix);
++
++        if (VERBOSE) {
++            Log.v(TAG, "GNSS SV count: " + svCount);
++            for (int i = 0; i < svCount; i++) {
++                Log.v(TAG, "sv: " + mSvs[i] +
++                        " snr: " + mSnrs[i]/10 +
++                        " elev: " + mSvElevations[i] +
++                        " azimuth: " + mSvAzimuths[i] +
++                        (!mSvEphemerisPresences[i] ? "  " : " E") +
++                        (!mSvAlmanacPresences[i] ? "  " : " A") +
++                        (!mSvUsedInFix[i] ? "" : "U"));
++            }
++        }
++
++        // return number of sets used in fix instead of total
++        updateStatus(mStatus, countGnssSvUsedInFix(svCount));
++
++        if (mNavigating && mStatus == LocationProvider.AVAILABLE && mLastFixTime > 0 &&
++            System.currentTimeMillis() - mLastFixTime > RECENT_FIX_TIMEOUT) {
++            // send an intent to notify that the GPS is no longer receiving fixes.
++            Intent intent = new Intent(LocationManager.GPS_FIX_CHANGE_ACTION);
++            intent.putExtra(LocationManager.EXTRA_GPS_ENABLED, false);
++            mContext.sendBroadcastAsUser(intent, UserHandle.ALL);
++            updateStatus(LocationProvider.TEMPORARILY_UNAVAILABLE, mSvCount);
++        }
++    }
++
++    /**
+      * called from native code to update AGPS status
+      */
+     private void reportAGpsStatus(int type, int status, byte[] ipaddr) {
+@@ -2338,12 +2404,18 @@ public class GpsLocationProvider implements LocationProviderInterface {
+     private static final int ALMANAC_MASK = 1;
+     private static final int USED_FOR_FIX_MASK = 2;
+ 
++    // GNSS extension
++    private static final int MAX_GNSS_SVS = 256;
++
+     // preallocated arrays, to avoid memory allocation in reportStatus()
+-    private int mSvs[] = new int[MAX_SVS];
+-    private float mSnrs[] = new float[MAX_SVS];
+-    private float mSvElevations[] = new float[MAX_SVS];
+-    private float mSvAzimuths[] = new float[MAX_SVS];
++    private int mSvs[] = new int[MAX_GNSS_SVS];
++    private float mSnrs[] = new float[MAX_GNSS_SVS];
++    private float mSvElevations[] = new float[MAX_GNSS_SVS];
++    private float mSvAzimuths[] = new float[MAX_GNSS_SVS];
+     private int mSvMasks[] = new int[3];
++    private boolean mSvEphemerisPresences[] = new boolean[MAX_GNSS_SVS];
++    private boolean mSvAlmanacPresences[] = new boolean[MAX_GNSS_SVS];
++    private boolean mSvUsedInFix[] = new boolean[MAX_GNSS_SVS];
+     private int mSvCount;
+     // preallocated to avoid memory allocation in reportNmea()
+     private byte[] mNmeaBuffer = new byte[120];
+@@ -2363,6 +2435,12 @@ public class GpsLocationProvider implements LocationProviderInterface {
+     // mask[0] is ephemeris mask and mask[1] is almanac mask
+     private native int native_read_sv_status(int[] svs, float[] snrs,
+             float[] elevations, float[] azimuths, int[] masks);
++    // returns number of GNSS SVs
++    private native int native_read_gnss_sv_status(int[] svs, float[] snrs,
++            float[] elevations, float[] azimuths,
++            boolean[] ephemerisPresences,
++            boolean[] almanacPresences,
++            boolean[] usedInFix);
+     private native int native_read_nmea(byte[] buffer, int bufferSize);
+     private native void native_inject_location(double latitude, double longitude, float accuracy);
+ 
+diff --git a/services/core/java/com/android/server/location/GpsStatusListenerHelper.java b/services/core/java/com/android/server/location/GpsStatusListenerHelper.java
+index 376b4a5..9155c7f 100644
+--- a/services/core/java/com/android/server/location/GpsStatusListenerHelper.java
++++ b/services/core/java/com/android/server/location/GpsStatusListenerHelper.java
+@@ -104,6 +104,32 @@ abstract class GpsStatusListenerHelper extends RemoteListenerHelper<IGpsStatusLi
+         foreach(operation);
+     }
+ 
++    public void onGnssSvStatusChanged(
++            final int svCount,
++            final int[] prns,
++            final float[] snrs,
++            final float[] elevations,
++            final float[] azimuths,
++            final boolean[] ephemerisPresences,
++            final boolean[] almanacPresences,
++            final boolean[] usedInFix) {
++        Operation operation = new Operation() {
++            @Override
++            public void execute(IGpsStatusListener listener) throws RemoteException {
++                listener.onGnssSvStatusChanged(
++                        svCount,
++                        prns,
++                        snrs,
++                        elevations,
++                        azimuths,
++                        ephemerisPresences,
++                        almanacPresences,
++                        usedInFix);
++            }
++        };
++        foreach(operation);
++    }
++
+     public void onNmeaReceived(final long timestamp, final String nmea) {
+         Operation operation = new Operation() {
+             @Override
+diff --git a/services/core/jni/com_android_server_location_GpsLocationProvider.cpp b/services/core/jni/com_android_server_location_GpsLocationProvider.cpp
+index 8183321..8fc3499 100644
+--- a/services/core/jni/com_android_server_location_GpsLocationProvider.cpp
++++ b/services/core/jni/com_android_server_location_GpsLocationProvider.cpp
+@@ -39,12 +39,13 @@ static jobject mCallbacksObj = NULL;
+ static jmethodID method_reportLocation;
+ static jmethodID method_reportStatus;
+ static jmethodID method_reportSvStatus;
++static jmethodID method_reportGnssSvStatus;
+ static jmethodID method_reportAGpsStatus;
+ static jmethodID method_reportNmea;
+ static jmethodID method_setEngineCapabilities;
+ static jmethodID method_xtraDownloadRequest;
+ static jmethodID method_reportNiNotification;
+-static jmethodID method_requestRefLocation;
++static jmethodID method_requestRefLocation;                
+ static jmethodID method_requestSetID;
+ static jmethodID method_requestUtcTime;
+ static jmethodID method_reportGeofenceTransition;
+@@ -69,6 +70,7 @@ static const GnssConfigurationInterface* sGnssConfigurationInterface = NULL;
+ 
+ // temporary storage for GPS callbacks
+ static GpsSvStatus  sGpsSvStatus;
++static GnssSvStatus  sGnssSvStatus;
+ static const char* sNmeaString;
+ static int sNmeaStringLength;
+ 
+@@ -105,11 +107,21 @@ static void status_callback(GpsStatus* status)
+ static void sv_status_callback(GpsSvStatus* sv_status)
+ {
+     JNIEnv* env = AndroidRuntime::getJNIEnv();
++    ALOGD("sv_status_callback(%p)", sv_status);
+     memcpy(&sGpsSvStatus, sv_status, sizeof(sGpsSvStatus));
+     env->CallVoidMethod(mCallbacksObj, method_reportSvStatus);
+     checkAndClearExceptionFromCallback(env, __FUNCTION__);
+ }
+ 
++static void gnss_sv_status_callback(GnssSvStatus* sv_status)
++{
++    JNIEnv* env = AndroidRuntime::getJNIEnv();
++    ALOGD("gnss_sv_status_callback(%p)", sv_status);
++    memcpy(&sGnssSvStatus, sv_status, sizeof(sGnssSvStatus));
++    env->CallVoidMethod(mCallbacksObj, method_reportGnssSvStatus);
++    checkAndClearExceptionFromCallback(env, __FUNCTION__);
++}
++
+ static void nmea_callback(GpsUtcTime timestamp, const char* nmea, int length)
+ {
+     JNIEnv* env = AndroidRuntime::getJNIEnv();
+@@ -156,6 +168,7 @@ GpsCallbacks sGpsCallbacks = {
+     location_callback,
+     status_callback,
+     sv_status_callback,
++    gnss_sv_status_callback,
+     nmea_callback,
+     set_capabilities_callback,
+     acquire_wakelock_callback,
+@@ -446,6 +459,7 @@ static void android_location_GpsLocationProvider_class_init_native(JNIEnv* env,
+     method_reportLocation = env->GetMethodID(clazz, "reportLocation", "(IDDDFFFJ)V");
+     method_reportStatus = env->GetMethodID(clazz, "reportStatus", "(I)V");
+     method_reportSvStatus = env->GetMethodID(clazz, "reportSvStatus", "()V");
++    method_reportGnssSvStatus = env->GetMethodID(clazz, "reportGnssSvStatus", "()V");
+     method_reportAGpsStatus = env->GetMethodID(clazz, "reportAGpsStatus", "(II[B)V");
+     method_reportNmea = env->GetMethodID(clazz, "reportNmea", "(J)V");
+     method_setEngineCapabilities = env->GetMethodID(clazz, "setEngineCapabilities", "(I)V");
+@@ -477,12 +491,15 @@ static void android_location_GpsLocationProvider_class_init_native(JNIEnv* env,
+             "(Landroid/location/GpsNavigationMessageEvent;)V");
+ 
+     err = hw_get_module(GPS_HARDWARE_MODULE_ID, (hw_module_t const**)&module);
++    ALOGV("hw_get_module err=%d module=%p", err, module);
+     if (err == 0) {
+         hw_device_t* device;
+         err = module->methods->open(module, GPS_HARDWARE_MODULE_ID, &device);
++        ALOGV("module->methods->open err=%d device=%p", err, device);
+         if (err == 0) {
+             gps_device_t* gps_device = (gps_device_t *)device;
+             sGpsInterface = gps_device->get_gps_interface(gps_device);
++            ALOGV("gps_device->get_gps_interface() = %p", sGpsInterface);
+         }
+     }
+     if (sGpsInterface) {
+@@ -507,6 +524,15 @@ static void android_location_GpsLocationProvider_class_init_native(JNIEnv* env,
+             (const GnssConfigurationInterface*)sGpsInterface->get_extension(
+                     GNSS_CONFIGURATION_INTERFACE);
+     }
++    ALOGV("sGpsXtraInterface = %p", sGpsXtraInterface);
++    ALOGV("sAGpsInterface = %p", sAGpsInterface);
++    ALOGV("sGpsNiInterface = %p", sGpsNiInterface);
++    ALOGV("sGpsDebugInterface = %p", sGpsDebugInterface);
++    ALOGV("sAGpsRilInterface = %p", sAGpsRilInterface);
++    ALOGV("sGpsGeofencingInterface = %p", sGpsGeofencingInterface);
++    ALOGV("sGpsMeasurementInterface = %p", sGpsMeasurementInterface);
++    ALOGV("sGpsNavigationMessageInterface = %p", sGpsNavigationMessageInterface);
++    ALOGV("sGnssConfigurationInterface = %p", sGnssConfigurationInterface);
+ }
+ 
+ static jboolean android_location_GpsLocationProvider_is_supported(JNIEnv* env, jclass clazz) {
+@@ -519,18 +545,34 @@ static jboolean android_location_GpsLocationProvider_is_supported(JNIEnv* env, j
+ 
+ static jboolean android_location_GpsLocationProvider_init(JNIEnv* env, jobject obj)
+ {
++    ALOGV("GpsLocationProvider_init");
+     // this must be set before calling into the HAL library
+     if (!mCallbacksObj)
+         mCallbacksObj = env->NewGlobalRef(obj);
+ 
+     // fail if the main interface fails to initialize
+-    if (!sGpsInterface || sGpsInterface->init(&sGpsCallbacks) != 0)
++    int ret;
++
++    ALOGV("init: sGpsInterface=%p sGpsXtraInterface=%p", sGpsInterface, sGpsXtraInterface);
++    if (sGpsInterface) {
++        ret = sGpsInterface->init(&sGpsCallbacks);
++        ALOGV("init: sGpsInterface->init() ret=%d", ret);
++        if (ret != 0) {
++            return JNI_FALSE;
++        }
++    } else {
+         return JNI_FALSE;
++    }
+ 
+     // if XTRA initialization fails we will disable it by sGpsXtraInterface to NULL,
+     // but continue to allow the rest of the GPS interface to work.
+-    if (sGpsXtraInterface && sGpsXtraInterface->init(&sGpsXtraCallbacks) != 0)
+-        sGpsXtraInterface = NULL;
++    if (sGpsXtraInterface) {
++        ret = sGpsXtraInterface->init(&sGpsXtraCallbacks);
++        ALOGV("init: sGpsXtraInterface->init() ret=%d", ret);
++        if (ret != 0) {
++            sGpsXtraInterface = NULL;
++        }
++    }
+     if (sAGpsInterface)
+         sAGpsInterface->init(&sAGpsCallbacks);
+     if (sGpsNiInterface)
+@@ -627,6 +669,44 @@ static jint android_location_GpsLocationProvider_read_sv_status(JNIEnv* env, job
+     return (jint) num_svs;
+ }
+ 
++static jint android_location_GpsLocationProvider_read_gnss_sv_status(JNIEnv* env, jobject obj,
++        jintArray prnArray, jfloatArray snrArray, jfloatArray elevArray, jfloatArray azumArray,
++        jbooleanArray ephemerisPresencesArray,
++        jbooleanArray almanacPresencesArray,
++        jbooleanArray usedInFixArray)
++{
++    // this should only be called from within a call to reportGnssSvStatus
++
++    jint* prns = env->GetIntArrayElements(prnArray, 0);
++    jfloat* snrs = env->GetFloatArrayElements(snrArray, 0);
++    jfloat* elev = env->GetFloatArrayElements(elevArray, 0);
++    jfloat* azim = env->GetFloatArrayElements(azumArray, 0);
++    jboolean* ephemeris_presences = env->GetBooleanArrayElements(ephemerisPresencesArray, 0);
++    jboolean* almanac_presences = env->GetBooleanArrayElements(almanacPresencesArray, 0);
++    jboolean* used_in_fix = env->GetBooleanArrayElements(usedInFixArray, 0);
++
++    int num_svs = sGnssSvStatus.num_svs;
++    for (int i = 0; i < num_svs; i++) {
++        prns[i] = sGnssSvStatus.sv_list[i].prn;
++        snrs[i] = sGnssSvStatus.sv_list[i].snr;
++        elev[i] = sGnssSvStatus.sv_list[i].elevation;
++        azim[i] = sGnssSvStatus.sv_list[i].azimuth;
++
++        ephemeris_presences[i] = sGnssSvStatus.sv_list[i].has_ephemeris ? 1 : 0;
++        almanac_presences[i] = sGnssSvStatus.sv_list[i].has_almanac ? 1 : 0;
++        used_in_fix[i] = sGnssSvStatus.sv_list[i].used_in_fix ? 1 : 0;
++    }
++
++    env->ReleaseIntArrayElements(prnArray, prns, 0);
++    env->ReleaseFloatArrayElements(snrArray, snrs, 0);
++    env->ReleaseFloatArrayElements(elevArray, elev, 0);
++    env->ReleaseFloatArrayElements(azumArray, azim, 0);
++    env->ReleaseBooleanArrayElements(ephemerisPresencesArray, ephemeris_presences, 0);
++    env->ReleaseBooleanArrayElements(almanacPresencesArray, almanac_presences, 0);
++    env->ReleaseBooleanArrayElements(usedInFixArray, used_in_fix, 0);
++    return (jint) num_svs;
++}
++
+ static void android_location_GpsLocationProvider_agps_set_reference_location_cellid(JNIEnv* env,
+         jobject obj, jint type, jint mcc, jint mnc, jint lac, jint cid)
+ {
+@@ -1441,6 +1521,9 @@ static JNINativeMethod sMethods[] = {
+     {"native_read_sv_status",
+             "([I[F[F[F[I)I",
+             (void*)android_location_GpsLocationProvider_read_sv_status},
++    {"native_read_gnss_sv_status",
++            "([I[F[F[F[Z[Z[Z)I",
++            (void*)android_location_GpsLocationProvider_read_gnss_sv_status},
+     {"native_read_nmea", "([BI)I", (void*)android_location_GpsLocationProvider_read_nmea},
+     {"native_inject_time", "(JJI)V", (void*)android_location_GpsLocationProvider_inject_time},
+     {"native_inject_location",
 diff --git a/telephony/java/android/telephony/PhoneNumberUtils.java b/telephony/java/android/telephony/PhoneNumberUtils.java
-index 3d0a553..8bd60b0 100644
+index 173437d..b912958 100644
 --- a/telephony/java/android/telephony/PhoneNumberUtils.java
 +++ b/telephony/java/android/telephony/PhoneNumberUtils.java
-@@ -47,6 +47,14 @@ import java.util.Locale;
+@@ -46,6 +46,14 @@ import java.util.Locale;
  import java.util.regex.Matcher;
  import java.util.regex.Pattern;
  
@@ -41,7 +684,7 @@ index 3d0a553..8bd60b0 100644
  /**
   * Various utilities for dealing with phone number strings.
   */
-@@ -89,6 +97,78 @@ public class PhoneNumberUtils
+@@ -88,6 +96,78 @@ public class PhoneNumberUtils
      private static final Pattern GLOBAL_PHONE_NUMBER_PATTERN =
              Pattern.compile("[\\+]?[0-9.-]+");
  
@@ -120,7 +763,7 @@ index 3d0a553..8bd60b0 100644
      /** True if c is ISO-LATIN characters 0-9 */
      public static boolean
      isISODigit (char c) {
-@@ -1855,6 +1935,8 @@ public class PhoneNumberUtils
+@@ -1805,6 +1885,8 @@ public class PhoneNumberUtils
      private static boolean isEmergencyNumberInternal(int subId, String number,
                                                       String defaultCountryIso,
                                                       boolean useExactMatch) {
@@ -129,7 +772,7 @@ index 3d0a553..8bd60b0 100644
          // If the number passed in is null, just return false:
          if (number == null) return false;
  
-@@ -1876,6 +1958,28 @@ public class PhoneNumberUtils
+@@ -1826,6 +1908,28 @@ public class PhoneNumberUtils
          Rlog.d(LOG_TAG, "subId:" + subId + ", number: " +  number + ", defaultCountryIso:" +
                  ((defaultCountryIso == null) ? "NULL" : defaultCountryIso));
  
@@ -158,7 +801,7 @@ index 3d0a553..8bd60b0 100644
          String emergencyNumbers = "";
          int slotId = SubscriptionManager.getSlotId(subId);
  
-@@ -1885,6 +1989,7 @@ public class PhoneNumberUtils
+@@ -1835,6 +1939,7 @@ public class PhoneNumberUtils
              String ecclist = (slotId == 0) ? "ril.ecclist" : ("ril.ecclist" + slotId);
  
              emergencyNumbers = SystemProperties.get(ecclist, "");
@@ -166,7 +809,7 @@ index 3d0a553..8bd60b0 100644
          }
  
          Rlog.d(LOG_TAG, "slotId:" + slotId + ", emergencyNumbers: " +  emergencyNumbers);
-@@ -1914,6 +2019,36 @@ public class PhoneNumberUtils
+@@ -1864,6 +1969,36 @@ public class PhoneNumberUtils
              return false;
          }
  
@@ -203,7 +846,7 @@ index 3d0a553..8bd60b0 100644
          Rlog.d(LOG_TAG, "System property doesn't provide any emergency numbers."
                  + " Use embedded logic for determining ones.");
  
-@@ -2961,4 +3096,149 @@ public class PhoneNumberUtils
+@@ -2880,4 +3015,149 @@ public class PhoneNumberUtils
          return SubscriptionManager.getDefaultVoiceSubId();
      }
      //==== End of utility methods used only in compareStrictly() =====
@@ -776,7 +1419,7 @@ index 2d72c2b..5f5377f 100644
 +    }
  }
 diff --git a/telephony/java/com/android/internal/telephony/IccCardConstants.java b/telephony/java/com/android/internal/telephony/IccCardConstants.java
-index e24664b..79063f5 100644
+index 606dd31..e8522bb 100644
 --- a/telephony/java/com/android/internal/telephony/IccCardConstants.java
 +++ b/telephony/java/com/android/internal/telephony/IccCardConstants.java
 @@ -51,6 +51,18 @@ public class IccCardConstants {
@@ -799,24 +1442,22 @@ index e24664b..79063f5 100644
       * This is combination of IccCardStatus.CardState and IccCardApplicationStatus.AppState
       * for external apps (like PhoneApp) to use
 diff --git a/telephony/java/com/android/internal/telephony/RILConstants.java b/telephony/java/com/android/internal/telephony/RILConstants.java
-index b87cfac..d9f6323 100644
+index 0764805..d717193 100644
 --- a/telephony/java/com/android/internal/telephony/RILConstants.java
 +++ b/telephony/java/com/android/internal/telephony/RILConstants.java
-@@ -323,7 +323,8 @@ cat include/telephony/ril.h | \
-     int RIL_REQUEST_GET_RADIO_CAPABILITY = 130;
-     int RIL_REQUEST_SET_RADIO_CAPABILITY = 131;
-     int RIL_REQUEST_GET_DATA_CALL_PROFILE = 132;
--    int RIL_REQUEST_SIM_GET_ATR = 133;
-+    // MTK please
-+    // int RIL_REQUEST_SIM_GET_ATR = 133;
+@@ -321,7 +321,6 @@ cat include/telephony/ril.h | \
+     int RIL_REQUEST_SET_DATA_PROFILE = 128;
+     int RIL_REQUEST_SHUTDOWN = 129;
+     int RIL_REQUEST_GET_DATA_CALL_PROFILE = 130;
+-    int RIL_REQUEST_SIM_GET_ATR = 131;
+     int RIL_REQUEST_GET_3G_CAPABILITY = 130;
+     int RIL_REQUEST_SET_3G_CAPABILITY = 131;
  
-     int RIL_UNSOL_RESPONSE_BASE = 1000;
-     int RIL_UNSOL_RESPONSE_RADIO_STATE_CHANGED = 1000;
-@@ -373,4 +374,325 @@ cat include/telephony/ril.h | \
-     int RIL_UNSOL_STK_CC_ALPHA_NOTIFY = 1044;
- 
+@@ -370,4 +369,324 @@ cat include/telephony/ril.h | \
+     int RIL_UNSOL_ON_SS = 1042;
+     int RIL_UNSOL_STK_CC_ALPHA_NOTIFY = 1043;
      int RIL_UNSOL_STK_SEND_SMS_RESULT = 11002; /* Samsung STK */
-+
++    
 +    // MediaTek Custom States
 +    // oh no
 +    static final int RIL_REQUEST_GET_PHONE_RAT_FAMILY = 130;
@@ -917,7 +1558,7 @@ index b87cfac..d9f6323 100644
 +    static final int RIL_REQUEST_SIM_INTERFACE_SWITCH = (RIL_REQUEST_MTK_BASE + 68);
 +
 +    //MTK-START [mtk80776] WiFi Calling
-+    static final int RIL_REQUEST_UICC_SELECT_APPLICATION = (RIL_REQUEST_MTK_BASE + 69);
++     static final int RIL_REQUEST_UICC_SELECT_APPLICATION = (RIL_REQUEST_MTK_BASE + 69);
 +    static final int RIL_REQUEST_UICC_DEACTIVATE_APPLICATION = (RIL_REQUEST_MTK_BASE + 70);
 +    static final int RIL_REQUEST_UICC_APPLICATION_IO = (RIL_REQUEST_MTK_BASE + 71);
 +    static final int RIL_REQUEST_UICC_AKA_AUTHENTICATE = (RIL_REQUEST_MTK_BASE + 72);
@@ -940,7 +1581,7 @@ index b87cfac..d9f6323 100644
 +    // CSD
 +    static final int RIL_REQUEST_DIAL_UP_CSD = (RIL_REQUEST_MTK_BASE + 82);
 +
-+    // M: For telephony modes update
++   // M: For telephony modes update
 +    static final int RIL_REQUEST_SET_TELEPHONY_MODE = (RIL_REQUEST_MTK_BASE + 83);
 +
 +    /* M: call control part start */
@@ -1056,7 +1697,6 @@ index b87cfac..d9f6323 100644
 +    static final int RIL_UNSOL_DEDICATE_BEARER_ACTIVATED = (RIL_UNSOL_MTK_BASE + 34);
 +    static final int RIL_UNSOL_DEDICATE_BEARER_MODIFIED = (RIL_UNSOL_MTK_BASE + 35);
 +    static final int RIL_UNSOL_DEDICATE_BEARER_DEACTIVATED = (RIL_UNSOL_MTK_BASE + 36);
-+
 +    //sm cause rac
 +    static final int RIL_UNSOL_RAC_UPDATE = (RIL_UNSOL_MTK_BASE + 37);
 +
