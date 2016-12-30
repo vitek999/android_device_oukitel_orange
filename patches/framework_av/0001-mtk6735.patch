@@ -439,7 +439,7 @@ index 8f06c55..a5fe690 100644
      $(TOP)/frameworks/av/media/libstagefright/webm                  \
      $(TOP)/frameworks/native/include/media/openmax                  \
      $(TOP)/external/tremolo/Tremolo                                 \
-+    $(TOP)/device/archos/persimmon/mtk/fmaudioplayer
++    $(TOP)/device/oukitel/orange/mtk/fmaudioplayer
  
  LOCAL_MODULE:= libmediaplayerservice
  
